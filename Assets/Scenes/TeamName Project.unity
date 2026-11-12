@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 653647302}
   - component: {fileID: 653647301}
   - component: {fileID: 653647304}
-  - component: {fileID: 653647305}
   m_Layer: 0
   m_Name: Platform Right
   m_TagString: Ground
@@ -257,20 +256,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0000001, y: 1}
   m_EdgeRadius: 0
---- !u!114 &653647305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653647299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e18c00c175c6e194bb8f51cb8eb25d59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatform
-  player: {fileID: 2068732847}
-  revealDistance: 3
 --- !u!1 &855374405
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +346,6 @@ GameObject:
   - component: {fileID: 884232660}
   - component: {fileID: 884232659}
   - component: {fileID: 884232662}
-  - component: {fileID: 884232663}
   m_Layer: 0
   m_Name: Platform Mid
   m_TagString: Ground
@@ -487,20 +471,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.99999994, y: 1}
   m_EdgeRadius: 0
---- !u!114 &884232663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884232657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e18c00c175c6e194bb8f51cb8eb25d59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatform
-  player: {fileID: 2068732847}
-  revealDistance: 3
 --- !u!1 &1026480111
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +620,6 @@ GameObject:
   - component: {fileID: 1648613129}
   - component: {fileID: 1648613128}
   - component: {fileID: 1648613131}
-  - component: {fileID: 1648613132}
   m_Layer: 0
   m_Name: Platform Left
   m_TagString: Ground
@@ -776,20 +745,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0000001, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1648613132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648613126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e18c00c175c6e194bb8f51cb8eb25d59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatform
-  player: {fileID: 2068732847}
-  revealDistance: 3
 --- !u!1 &2068732843
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,9 +758,10 @@ GameObject:
   - component: {fileID: 2068732845}
   - component: {fileID: 2068732844}
   - component: {fileID: 2068732848}
+  - component: {fileID: 2068732849}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -971,8 +927,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61be63fd4ea4d46bea72de93f0bc7fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  playerAudio: {fileID: 0}
   moveSpeed: 5
   jumpForce: 7
+--- !u!114 &2068732849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068732843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7f169b6e395b742b42d0b505929a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
+  footstepClips: []
+  jumpStartClip: {fileID: 0}
+  landClip: {fileID: 0}
+  walkingVolume: 0.5
+  jumpVolume: 0.7
+  landVolume: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
