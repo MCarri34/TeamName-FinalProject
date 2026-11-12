@@ -114,23 +114,33 @@ public class PlayerMovement : MonoBehaviour
             );
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Ground") && rb.linearVelocityY <= 0)
+        // Check if the player landed on the ground
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            bool justLanded = !isGrounded;
-            isGrounded = true;
-
-            if (justLanded && playerAudio != null)
+            foreach (ContactPoint2D contact in collision.contacts)
             {
-                playerAudio.PlayLanding(other.gameObject);
+                // Make sure the player landed on top
+                if (contact.normal.y > 0.5f)
+                {
+                    isGrounded = true;
+
+                    // Play the piano sound when landing
+                    if (playerAudio != null)
+                    {
+                        playerAudio.PlayLanding(collision.gameObject);
+                    }
+
+                    break;
+                }
             }
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnCollisionExit2D(Collision2D collision)
         {
-            if (other.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("Ground"))
             {
                 isGrounded = false;
             }
