@@ -6,7 +6,7 @@ public class InvisiblePlatforms : MonoBehaviour
     public Transform player;
     public float revealDistance = 3f;
 
-    private MeshRenderer platformRenderer;
+    private SpriteRenderer platformRenderer;
 
     // Check if the player has touched the platform before
     private bool hasBeenTouched = false;
@@ -14,7 +14,7 @@ public class InvisiblePlatforms : MonoBehaviour
     void Start()
     {
         // Get the MeshRenderer and hide the platform
-        platformRenderer = GetComponent<MeshRenderer>();
+        platformRenderer = GetComponent<SpriteRenderer>();
         platformRenderer.enabled = false;
     }
 
