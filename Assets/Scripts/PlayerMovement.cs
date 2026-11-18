@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
     private PlayerState currentState = PlayerState.Idle;
     private PlayerState previousState = PlayerState.Idle;
     bool isGrounded = false;
+
+    // Keep track of which platform the player is standing on
+    private GameObject currentGround;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Keyboard.current == null)
         {
             movement = Vector2.zero;
@@ -109,22 +113,25 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(
-            movement.x * moveSpeed, 
+            movement.x * moveSpeed,
             rb.linearVelocity.y
             );
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the player landed on the ground
+        // Check if the player touches a platform
         if (collision.gameObject.CompareTag("Ground"))
         {
             foreach (ContactPoint2D contact in collision.contacts)
             {
-                // Make sure the player landed on top
+                // Only count landing on top of the platform
                 if (contact.normal.y > 0.5f)
                 {
                     isGrounded = true;
+
+                    // Remember which platform we landed on
+                    currentGround = collision.gameObject;
 
                     // Play the piano sound when landing
                     if (playerAudio != null)
@@ -139,10 +146,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnCollisionExit2D(Collision2D collision)
+    {
+        // Only remove the grounded state when leaving
+        // the platform the player was actually standing on
+        if (collision.gameObject == currentGround)
         {
-            if (collision.gameObject.CompareTag("Ground"))
-            {
-                isGrounded = false;
-            }
+            isGrounded = false;
+            currentGround = null;
         }
+    }
 }
