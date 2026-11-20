@@ -3464,21 +3464,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RevealPlatform
   cameraFollow: {fileID: 1254079753}
   hiddenPlatforms:
-  - {fileID: 1533382664}
+  - {fileID: 1137889300}
+  - {fileID: 1400962196}
+  - {fileID: 650453626}
+  - {fileID: 101610537}
+  - {fileID: 1078585582}
+  - {fileID: 1535632680}
+  - {fileID: 1799592156}
+  - {fileID: 818525010}
+  - {fileID: 1113330632}
+  - {fileID: 1159825345}
+  - {fileID: 771913106}
+  - {fileID: 1118271126}
+  - {fileID: 1740233402}
   - {fileID: 415067937}
+  - {fileID: 1533382664}
   - {fileID: 604014442}
   - {fileID: 1238626036}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 700767910}
+  - {fileID: 1000915202}
+  - {fileID: 364724017}
+  - {fileID: 1419357695}
+  - {fileID: 673272694}
+  - {fileID: 1457592097}
+  - {fileID: 1156658805}
+  - {fileID: 80039874}
+  - {fileID: 1990656663}
+  - {fileID: 1723114850}
+  - {fileID: 954532237}
+  - {fileID: 430937605}
+  - {fileID: 307280693}
+  - {fileID: 302209592}
+  - {fileID: 926696775}
+  - {fileID: 1694404549}
+  - {fileID: 284595204}
+  - {fileID: 2127707651}
+  - {fileID: 1817045349}
+  - {fileID: 23335238}
+  - {fileID: 1769009343}
+  - {fileID: 1212099309}
+  - {fileID: 1229657663}
+  - {fileID: 1179199649}
+  - {fileID: 2078874661}
+  - {fileID: 257317125}
+  - {fileID: 630489600}
+  - {fileID: 1735085776}
+  - {fileID: 2104571734}
+  - {fileID: 1351572734}
+  - {fileID: 562853428}
+  - {fileID: 229832275}
+  - {fileID: 2062564729}
+  - {fileID: 1196671728}
+  - {fileID: 906197532}
+  - {fileID: 1339544756}
+  - {fileID: 1829249877}
+  - {fileID: 1833617418}
+  - {fileID: 670816969}
+  - {fileID: 229922097}
 --- !u!61 &847676475
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5184,7 +5226,7 @@ GameObject:
   - component: {fileID: 1179199650}
   - component: {fileID: 1179199649}
   m_Layer: 0
-  m_Name: Square (41)
+  m_Name: Square (41)40
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7489,7 +7531,7 @@ GameObject:
   - component: {fileID: 1694404550}
   - component: {fileID: 1694404549}
   m_Layer: 0
-  m_Name: Square (33)
+  m_Name: Square (33)20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
