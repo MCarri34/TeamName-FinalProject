@@ -1,5 +1,4 @@
-
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,6 +27,16 @@ public class StartButtonImpact : MonoBehaviour
 
     [Header("Scene")]
     public string gameplaySceneName;
+
+
+    [Header("Scene Transition")]
+    public GameObject blackoutCanvas;
+    public GlassBreakEvent glassBreakEvent;
+
+    [Range(0.5f, 1f)]
+    public float blackoutDuration = 0.8f;
+
+    private bool isLoading;
 
     private Vector3 startPosition;
     private Vector3 targetPosition;
@@ -153,14 +162,35 @@ public class StartButtonImpact : MonoBehaviour
         motionRoot.position = targetPosition;
         impacted = true;
 
-        if (audioSource != null && impactSound != null)
-            audioSource.PlayOneShot(impactSound);
+        if (glassBreakEvent != null) glassBreakEvent.StopFallingSound();
+
+        if (audioSource != null && impactSound != null) audioSource.PlayOneShot(impactSound);
     }
 
     // Animation Event shortly after impact.
     public void LoadGame()
     {
-        if (!string.IsNullOrEmpty(gameplaySceneName))
-            SceneManager.LoadScene(gameplaySceneName);
+        if (!started || isLoading) return;
+
+        if (string.IsNullOrEmpty(gameplaySceneName))
+        {
+            Debug.LogError("Gameplay scene name is empty.", this);
+            return;
+        }
+
+        isLoading = true;
+
+        Impact();
+
+        StartCoroutine(LoadGameAfterBlackout());
+    }
+
+    private IEnumerator LoadGameAfterBlackout()
+    {
+        if (blackoutCanvas != null) blackoutCanvas.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(blackoutDuration);
+
+        SceneManager.LoadScene(gameplaySceneName);
     }
 }
