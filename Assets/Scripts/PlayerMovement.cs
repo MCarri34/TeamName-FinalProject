@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
+    private bool hasDoubleJumpPowerUp = false;
+    private bool doubleJumpAvailable = false;
 
 
     /*
@@ -74,11 +76,32 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized;
 
         //Jump
-        bool jumped = Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded;
-        if (jumped)
+        bool jumped = false;
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
+            if (isGrounded)
+            {
+                //Normal jump
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+                isGrounded = false;
+                jumped = true;
+            }
+            else if (hasDoubleJumpPowerUp && doubleJumpAvailable)
+            {
+                //One extra jump while in the air
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+                //One time only extra jump
+                doubleJumpAvailable = false;
+
+                jumped = true;
+            }
         }
 
         UpdateState(jumped);
@@ -153,6 +176,28 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = false;
             currentGround = null;
+        }
+    }
+
+    //Activate double jump power up
+     public void ActivateDoubleJump()
+    {
+        if (!hasDoubleJumpPowerUp)
+        {
+            hasDoubleJumpPowerUp = true;
+            doubleJumpAvailable = true;
+        }
+    }
+
+    //Detect power up
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("DoubleJump"))
+        {
+            ActivateDoubleJump();
+
+            //Remove collected power up
+            Destroy(other.gameObject);
         }
     }
 }
