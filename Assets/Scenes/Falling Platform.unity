@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!61 &150538398
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -337,6 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!61 &157757370
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -491,6 +493,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!61 &280243675
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -645,6 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!61 &340691156
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -868,6 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!61 &637301934
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1024,7 +1029,7 @@ MonoBehaviour:
   hiddenPlatforms:
   - {fileID: 1500678204}
   - {fileID: 150538397}
-  - {fileID: 1512254846}
+  - {fileID: 0}
   - {fileID: 1754338629}
   - {fileID: 1251459225}
   - {fileID: 157757369}
@@ -1258,6 +1263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!1 &1500678203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,6 +1297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!61 &1500678205
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1480,6 +1487,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1719627099839968995, guid: 5c14593767e88f54389dfa24c5f0a0e7, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3481637357327470635, guid: 5c14593767e88f54389dfa24c5f0a0e7, type: 3}
       propertyPath: m_Name
       value: Falling (1)
@@ -1488,33 +1499,15 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: 7448897759140805530, guid: 5c14593767e88f54389dfa24c5f0a0e7, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3481637357327470635, guid: 5c14593767e88f54389dfa24c5f0a0e7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1512254846}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c14593767e88f54389dfa24c5f0a0e7, type: 3}
---- !u!1 &1512254845 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3481637357327470635, guid: 5c14593767e88f54389dfa24c5f0a0e7, type: 3}
-  m_PrefabInstance: {fileID: 1512254844}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1512254846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512254845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e18c00c175c6e194bb8f51cb8eb25d59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
-  player: {fileID: 0}
-  revealDistance: 3
 --- !u!1 &1754338628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!61 &1754338630
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1772,6 +1766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!4 &1841574708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8777677258858752065, guid: 2c65f066fc0250949b066427d0d6e3dd, type: 3}
@@ -2035,6 +2030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
   player: {fileID: 0}
   revealDistance: 3
+  revealParticle: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

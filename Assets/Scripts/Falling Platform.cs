@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
 {
+    [SerializeField] ParticleSystem revealParticle;
+        
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     Rigidbody2D rb;
+    
+    SpriteRenderer sprite;
+
     void Start()
     {
         // The body is first Kinematic so the object cannot be moved by gravity
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
+
+        sprite = GetComponent<SpriteRenderer>();
+        //revealParticle.Play(false);
     }
 
     // Update is called once per frame
@@ -26,6 +34,7 @@ public class FallingPlatform : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("Player"))
         {
+            revealParticle.Play(true);
             StartCoroutine(Falling());
         }
         
@@ -35,7 +44,21 @@ public class FallingPlatform : MonoBehaviour
     public IEnumerator Falling()
     {
         Debug.Log("Started falling coroutine");
-        yield return new WaitForSeconds(3f);
+        Color currCol = sprite.color;
+
+        while(currCol.a != 0f)
+        {
+            if (currCol.a <= 0.2f)
+            {
+                break;
+            }
+            currCol.a -= 0.1f;
+            sprite.color = currCol;
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        revealParticle.Play(false);
         Debug.Log("Gravity enabled");
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = 2f;
