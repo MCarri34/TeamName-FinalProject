@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
             isCrouched = false;
         }
 
+        
         if ((keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame) && isGrounded)
         {
             Jump();
