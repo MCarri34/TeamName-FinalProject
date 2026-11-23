@@ -7033,7 +7033,7 @@ MonoBehaviour:
   windupScaleMultiplier: 0.8823529
   audioSource: {fileID: 173019692}
   impactSound: {fileID: 8300000, guid: 74fc36b3045f9344f8446cb4f1ed282b, type: 3}
-  gameplaySceneName: Test
+  gameplaySceneName: Tutorial
   blackoutCanvas: {fileID: 477282505}
   glassBreakEvent: {fileID: 1405326276}
   blackoutDuration: 0.8
