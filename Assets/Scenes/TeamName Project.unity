@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 653647302}
   - component: {fileID: 653647301}
   - component: {fileID: 653647304}
+  - component: {fileID: 653647305}
   m_Layer: 0
   m_Name: Platform Right
   m_TagString: Ground
@@ -204,8 +205,8 @@ Transform:
   m_GameObject: {fileID: 653647299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.37, y: -2.35, z: 0}
-  m_LocalScale: {x: 7.0005918, y: 1, z: 1}
+  m_LocalPosition: {x: 7.5992, y: -2.7, z: 0}
+  m_LocalScale: {x: 6.6482425, y: -1.1291474, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -268,6 +269,7 @@ GameObject:
   - component: {fileID: 884232660}
   - component: {fileID: 884232659}
   - component: {fileID: 884232662}
+  - component: {fileID: 884232663}
   m_Layer: 0
   m_Name: Platform Mid
   m_TagString: Ground
@@ -341,8 +343,8 @@ Transform:
   m_GameObject: {fileID: 884232657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -3.71, z: 0}
-  m_LocalScale: {x: 4.8447, y: 1, z: 1}
+  m_LocalPosition: {x: -0.26, y: -4.42, z: 0}
+  m_LocalScale: {x: 6.033617, y: 1.2355598, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -393,6 +395,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.99999994, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &884232663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884232657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18c00c175c6e194bb8f51cb8eb25d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
+  player: {fileID: 2068732847}
+  revealDistance: 3
 --- !u!1 &1026480111
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +558,7 @@ GameObject:
   - component: {fileID: 1648613129}
   - component: {fileID: 1648613128}
   - component: {fileID: 1648613131}
+  - component: {fileID: 1648613132}
   m_Layer: 0
   m_Name: Platform Left
   m_TagString: Ground
@@ -615,8 +632,8 @@ Transform:
   m_GameObject: {fileID: 1648613126}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.32, y: -2.35, z: 0}
-  m_LocalScale: {x: 7.0005918, y: 1, z: 1}
+  m_LocalPosition: {x: -7.1874, y: -2.7561, z: 0}
+  m_LocalScale: {x: 7.265618, y: 0.7806118, z: 0.3454}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

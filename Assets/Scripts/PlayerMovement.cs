@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
+    private bool hasDoubleJumpPowerUp = false;
+    private bool doubleJumpAvailable = false;
 
 
     /*
@@ -38,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
     private PlayerState currentState = PlayerState.Idle;
     private PlayerState previousState = PlayerState.Idle;
     bool isGrounded = false;
+
+    // Keep track of which platform the player is standing on
+    private GameObject currentGround;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Keyboard.current == null)
         {
             movement = Vector2.zero;
@@ -70,11 +76,32 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized;
 
         //Jump
-        bool jumped = Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded;
-        if (jumped)
+        bool jumped = false;
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
+            if (isGrounded)
+            {
+                //Normal jump
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+                isGrounded = false;
+                jumped = true;
+            }
+            else if (hasDoubleJumpPowerUp && doubleJumpAvailable)
+            {
+                //One extra jump while in the air
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+                //One time only extra jump
+                doubleJumpAvailable = false;
+
+                jumped = true;
+            }
         }
 
         UpdateState(jumped);
@@ -109,30 +136,68 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(
-            movement.x * moveSpeed, 
+            movement.x * moveSpeed,
             rb.linearVelocity.y
             );
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Ground") && rb.linearVelocityY <= 0)
+        // Check if the player touches a platform
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            bool justLanded = !isGrounded;
-            isGrounded = true;
-
-            if (justLanded && playerAudio != null)
+            foreach (ContactPoint2D contact in collision.contacts)
             {
-                playerAudio.PlayLanding(other.gameObject);
+                // Only count landing on top of the platform
+                if (contact.normal.y > 0.5f)
+                {
+                    isGrounded = true;
+
+                    // Remember which platform we landed on
+                    currentGround = collision.gameObject;
+
+                    // Play the piano sound when landing
+                    if (playerAudio != null)
+                    {
+                        playerAudio.PlayLanding(collision.gameObject);
+                    }
+
+                    break;
+                }
             }
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        // Only remove the grounded state when leaving
+        // the platform the player was actually standing on
+        if (collision.gameObject == currentGround)
         {
-            if (other.CompareTag("Ground"))
-            {
-                isGrounded = false;
-            }
+            isGrounded = false;
+            currentGround = null;
         }
+    }
+
+    //Activate double jump power up
+     public void ActivateDoubleJump()
+    {
+        if (!hasDoubleJumpPowerUp)
+        {
+            hasDoubleJumpPowerUp = true;
+            doubleJumpAvailable = true;
+        }
+    }
+
+    //Detect power up
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("DoubleJump"))
+        {
+            ActivateDoubleJump();
+
+            //Remove collected power up
+            Destroy(other.gameObject);
+        }
+    }
 }

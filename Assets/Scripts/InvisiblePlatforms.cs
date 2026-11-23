@@ -6,36 +6,54 @@ public class InvisiblePlatforms : MonoBehaviour
     public Transform player;
     public float revealDistance = 3f;
 
-    private MeshRenderer platformRenderer;
+    private SpriteRenderer platformRenderer;
 
-    // Check if the player has touched the platform before
+    // Check if the platform has been touched
     private bool hasBeenTouched = false;
+
+    // Check if the entire level is being revealed
+    private bool showingOverview = false;
 
     void Start()
     {
-        // Get the MeshRenderer and hide the platform
-        platformRenderer = GetComponent<MeshRenderer>();
+        // Get the renderer and hide the platform
+        platformRenderer = GetComponent<SpriteRenderer>();
         platformRenderer.enabled = false;
     }
 
     void Update()
     {
-        // Stop checking distance after the player first touches it
-        if (player == null || hasBeenTouched)
+        // Skip distance checks during the level reveal
+        if (showingOverview || player == null || hasBeenTouched)
             return;
 
-        // Check how close the player is to the platform
+        // Check the distance between the player and platform
         float distance = Vector2.Distance(
             player.position, transform.position
         );
 
-        // Show the platform when the player is nearby
+        // Reveal the platform when the player is nearby
         platformRenderer.enabled = distance <= revealDistance;
+    }
+
+    // Called by the special platform
+    public void SetOverview(bool show)
+    {
+        showingOverview = show;
+
+        // Show or hide the platform
+        platformRenderer.enabled = show;
+
+        // After the reveal, keep it hidden until touched
+        if (!show)
+        {
+            hasBeenTouched = true;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Show the platform when the player touches it
+        // Reveal the platform when the player lands on it
         if (collision.gameObject.CompareTag("Player"))
         {
             hasBeenTouched = true;
@@ -46,7 +64,7 @@ public class InvisiblePlatforms : MonoBehaviour
     void OnCollisionExit2D(Collision2D collision)
     {
         // Hide the platform when the player leaves it
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !showingOverview)
         {
             platformRenderer.enabled = false;
         }
