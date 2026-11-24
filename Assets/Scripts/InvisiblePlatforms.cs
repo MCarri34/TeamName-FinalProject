@@ -8,6 +8,8 @@ public class InvisiblePlatforms : MonoBehaviour
 
     private SpriteRenderer platformRenderer;
 
+    [SerializeField] private ParticleSystem revealParticle;
+
     // Check if the platform has been touched
     private bool hasBeenTouched = false;
     private bool playerTouching = false;
@@ -60,6 +62,7 @@ public class InvisiblePlatforms : MonoBehaviour
             playerTouching = true;
             hasBeenTouched = true;
             platformRenderer.enabled = true;
+            revealParticle.Play(true);
         }
     }
 

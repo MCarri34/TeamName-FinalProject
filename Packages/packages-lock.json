@@ -148,14 +148,14 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.ide.visualstudio": {
-      "version": "2.0.26",
+    "com.unity.ide.vscodium": {
+      "version": "https://github.com/loomgui/com.unity.ide.vscodium.git",
       "depth": 0,
-      "source": "registry",
+      "source": "git",
       "dependencies": {
         "com.unity.test-framework": "1.1.33"
       },
-      "url": "https://packages.unity.com"
+      "hash": "8ffa80dd82c3b31d551f0af413751272560640bf"
     },
     "com.unity.inputsystem": {
       "version": "1.20.0",
