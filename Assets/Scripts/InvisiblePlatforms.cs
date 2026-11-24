@@ -12,6 +12,7 @@ public class InvisiblePlatforms : MonoBehaviour
 
     // Check if the platform has been touched
     private bool hasBeenTouched = false;
+    private bool playerTouching = false;
 
     // Check if the entire level is being revealed
     private bool showingOverview = false;
@@ -38,13 +39,13 @@ public class InvisiblePlatforms : MonoBehaviour
         platformRenderer.enabled = distance <= revealDistance;
     }
 
-    // Called by the special platform
+    // Called by the reveal platform
     public void SetOverview(bool show)
     {
         showingOverview = show;
 
-        // Show or hide the platform
-        platformRenderer.enabled = show;
+        // Keep the platform visible if the player is touching it
+        platformRenderer.enabled = show || playerTouching;
 
         // After the reveal, keep it hidden until touched
         if (!show)
@@ -58,6 +59,7 @@ public class InvisiblePlatforms : MonoBehaviour
         // Reveal the platform when the player lands on it
         if (collision.gameObject.CompareTag("Player"))
         {
+            playerTouching = true;
             hasBeenTouched = true;
             platformRenderer.enabled = true;
             revealParticle.Play(true);
@@ -66,10 +68,16 @@ public class InvisiblePlatforms : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        // Hide the platform when the player leaves it
-        if (collision.gameObject.CompareTag("Player") && !showingOverview)
+        // Check if the player leaves the platform
+        if (collision.gameObject.CompareTag("Player"))
         {
-            platformRenderer.enabled = false;
+            playerTouching = false;
+
+            // Hide the platform unless the level is revealed
+            if (!showingOverview)
+            {
+                platformRenderer.enabled = false;
+            }
         }
     }
 }

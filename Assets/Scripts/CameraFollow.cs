@@ -10,6 +10,10 @@ public class CameraFollow : MonoBehaviour
     public float normalSize = 5f;
     public float overviewSize = 12f;
 
+    // Speed of camera movement and zoom
+    public float moveSpeed = 5f;
+    public float zoomSpeed = 4f;
+
     // Check if the player is on the reveal platform
     public bool showingOverview = false;
 
@@ -19,6 +23,19 @@ public class CameraFollow : MonoBehaviour
     {
         // Get the Camera component
         gameCamera = GetComponent<Camera>();
+
+        // Start the camera on the player
+        if (player != null)
+        {
+            transform.position = new Vector3(
+                player.position.x,
+                player.position.y,
+                transform.position.z
+            );
+        }
+
+        // Start with the normal camera size
+        gameCamera.orthographicSize = normalSize;
     }
 
     void LateUpdate()
@@ -35,21 +52,33 @@ public class CameraFollow : MonoBehaviour
             target = overviewCenter;
         }
 
-        // Move camera while keeping its Z position
-        transform.position = new Vector3(
+        // Set the camera's target position
+        Vector3 targetPosition = new Vector3(
             target.position.x,
             target.position.y,
             transform.position.z
         );
 
-        // Change camera zoom
+        // Move the camera toward the target
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPosition,
+            moveSpeed * Time.deltaTime
+        );
+
+        // Choose the camera zoom size
+        float targetSize = normalSize;
+
         if (showingOverview)
         {
-            gameCamera.orthographicSize = overviewSize;
+            targetSize = overviewSize;
         }
-        else
-        {
-            gameCamera.orthographicSize = normalSize;
-        }
+
+        // Zoom the camera in or out
+        gameCamera.orthographicSize = Mathf.Lerp(
+            gameCamera.orthographicSize,
+            targetSize,
+            zoomSpeed * Time.deltaTime
+        );
     }
 }

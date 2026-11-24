@@ -75,10 +75,7 @@ public class StartButtonImpact : MonoBehaviour
             ? null
             : menuCanvas.worldCamera;
 
-        Vector2 screenPoint =
-            RectTransformUtility.WorldToScreenPoint(
-                uiCamera, uiCenter
-            );
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(uiCamera, uiCenter);
 
         // Convert screen position to Player's world plane.
         float depth = Vector3.Dot(
@@ -130,7 +127,8 @@ public class StartButtonImpact : MonoBehaviour
             if (state.IsName("StartAttack"))
             {
                 float elapsed = Mathf.Max(0f, state.normalizedTime * state.length);
-                poseProgress = windupDuration > 0f
+                poseProgress = 
+                    windupDuration > 0f
                     ? Mathf.Clamp01(elapsed / windupDuration)
                     : 1f;
             }

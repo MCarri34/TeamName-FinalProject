@@ -1,46 +1,105 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RevealPlatform : MonoBehaviour
 {
     // Camera follow script
     public CameraFollow cameraFollow;
 
-    // All invisible platforms in this level
-    public InvisiblePlatforms[] hiddenPlatforms;
+    // Automatically find the invisible platforms
+    private InvisiblePlatforms[] hiddenPlatforms;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    [Header("Audio")]
+    public AudioSource audioSource;
+
+    [FormerlySerializedAs("revealSound")]
+    public AudioClip enterSound;
+    public AudioClip exitSound;
+
+    [FormerlySerializedAs("revealVolume")]
+    [Range(0f, 1f)] public float enterVolume = 1f;
+    [Range(0f, 1f)] public float exitVolume = 1f;
+
+    private bool isRevealing = false;
+
+    public void BeginReveal()
     {
-        // Check if the player touches the reveal platform
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // Zoom out the camera
-            if (cameraFollow != null)
-                cameraFollow.showingOverview = true;
+        if (isRevealing)
+            return;
 
-            // Make all invisible platforms visible
-            foreach (InvisiblePlatforms platform in hiddenPlatforms)
-            {
-                if (platform != null)
-                    platform.SetOverview(true);
-            }
+        isRevealing = true;
+
+        // Find all invisible platforms under this GameObject
+        hiddenPlatforms =
+            GetComponentsInChildren<InvisiblePlatforms>(true);
+
+        // Tell the camera to zoom out
+        if (cameraFollow != null)
+        {
+            cameraFollow.showingOverview = true;
+        }
+
+        // Reveal all invisible platforms
+        foreach (InvisiblePlatforms platform in hiddenPlatforms)
+        {
+            platform.SetOverview(true);
+        }
+
+        // Show how many platforms were found
+        Debug.Log("Found " + hiddenPlatforms.Length + " invisible platforms");
+
+        // Play the reveal sound
+        if (audioSource != null && enterSound != null)
+        {
+            audioSource.PlayOneShot(enterSound, enterVolume);
         }
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    public void EndReveal()
     {
-        // Check if the player leaves the reveal platform
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // Return the camera to normal
-            if (cameraFollow != null)
-                cameraFollow.showingOverview = false;
+        if (!isRevealing)
+            return;
 
-            // Hide all platforms again
+        isRevealing = false;
+
+        // Tell the camera to zoom back in
+        if (cameraFollow != null)
+        {
+            cameraFollow.showingOverview = false;
+        }
+
+        // Hide the platforms again
+        if (hiddenPlatforms != null)
+        {
             foreach (InvisiblePlatforms platform in hiddenPlatforms)
             {
                 if (platform != null)
                     platform.SetOverview(false);
             }
+        }
+
+        // Play the exit sound
+        if (audioSource != null && exitSound != null)
+        {
+            audioSource.PlayOneShot(exitSound, exitVolume);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Reveal the level when the player enters
+        if (other.CompareTag("Player"))
+        {
+            BeginReveal();
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        // Hide the level when the player leaves
+        if (other.CompareTag("Player"))
+        {
+            EndReveal();
         }
     }
 }
