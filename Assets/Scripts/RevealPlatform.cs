@@ -5,6 +5,7 @@ public class RevealPlatform : MonoBehaviour
 {
     // Camera follow script
     public CameraFollow cameraFollow;
+    [SerializeField] ParticleSystem revealParticleSystem;
 
     // Automatically find the invisible platforms
     private InvisiblePlatforms[] hiddenPlatforms;
@@ -44,6 +45,7 @@ public class RevealPlatform : MonoBehaviour
         {
             platform.SetOverview(true);
         }
+        revealParticleSystem.Play(true);
 
         // Show how many platforms were found
         Debug.Log("Found " + hiddenPlatforms.Length + " invisible platforms");
@@ -77,6 +79,9 @@ public class RevealPlatform : MonoBehaviour
                     platform.SetOverview(false);
             }
         }
+        revealParticleSystem.Play(false);
+        revealParticleSystem.Stop();
+        revealParticleSystem.Clear();
 
         // Play the exit sound
         if (audioSource != null && exitSound != null)
