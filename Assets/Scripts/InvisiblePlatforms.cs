@@ -2,81 +2,48 @@ using UnityEngine;
 
 public class InvisiblePlatforms : MonoBehaviour
 {
-    // Player reference and distance to reveal the platform
-    public Transform player;
-    public float revealDistance = 3f;
-
     private SpriteRenderer platformRenderer;
 
+    // Particle effect when the player touches the platform
     [SerializeField] private ParticleSystem revealParticle;
 
-    // Check if the platform has been touched
-    private bool hasBeenTouched = false;
-    private bool playerTouching = false;
-
-    // Check if the entire level is being revealed
-    private bool showingOverview = false;
-
-    void Start()
+    void Awake()
     {
-        // Get the renderer and hide the platform
+        // Get the platform's SpriteRenderer
         platformRenderer = GetComponent<SpriteRenderer>();
-        platformRenderer.enabled = false;
+
+        // Keep the renderer enabled
+        platformRenderer.enabled = true;
+
+        // Only show the platform inside the player's mask
+        SetOverview(false);
     }
 
-    void Update()
-    {
-        // Skip distance checks during the level reveal
-        if (showingOverview || player == null || hasBeenTouched)
-            return;
-
-        // Check the distance between the player and platform
-        float distance = Vector2.Distance(
-            player.position, transform.position
-        );
-
-        // Reveal the platform when the player is nearby
-        platformRenderer.enabled = distance <= revealDistance;
-    }
-
-    // Called by the reveal platform
+    // Called when entering or leaving the reveal area
     public void SetOverview(bool show)
     {
-        showingOverview = show;
-
-        // Keep the platform visible if the player is touching it
-        platformRenderer.enabled = show || playerTouching;
-
-        // After the reveal, keep it hidden until touched
-        if (!show)
+        if (show)
         {
-            hasBeenTouched = true;
+            // Show the entire platform
+            platformRenderer.maskInteraction =
+                SpriteMaskInteraction.None;
+        }
+        else
+        {
+            // Only show the area surrounding the player
+            platformRenderer.maskInteraction =
+                SpriteMaskInteraction.VisibleInsideMask;
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Reveal the platform when the player lands on it
+        // Play particles when the player touches the platform
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerTouching = true;
-            hasBeenTouched = true;
-            platformRenderer.enabled = true;
-            revealParticle.Play(true);
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        // Check if the player leaves the platform
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            playerTouching = false;
-
-            // Hide the platform unless the level is revealed
-            if (!showingOverview)
+            if (revealParticle != null)
             {
-                platformRenderer.enabled = false;
+                revealParticle.Play(true);
             }
         }
     }

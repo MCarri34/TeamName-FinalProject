@@ -2402,7 +2402,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2512,8 +2512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18c00c175c6e194bb8f51cb8eb25d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InvisiblePlatforms
-  player: {fileID: 0}
-  revealDistance: 3
   revealParticle: {fileID: 6437376729011447013}
 --- !u!1001 &4933472143104978170
 PrefabInstance:

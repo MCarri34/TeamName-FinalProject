@@ -30,9 +30,8 @@ public class RevealPlatform : MonoBehaviour
 
         isRevealing = true;
 
-        // Find all invisible platforms under this GameObject
-        hiddenPlatforms =
-            GetComponentsInChildren<InvisiblePlatforms>(true);
+        // Automatically find all active invisible platforms
+        hiddenPlatforms = FindObjectsByType<InvisiblePlatforms>();
 
         // Tell the camera to zoom out
         if (cameraFollow != null)
