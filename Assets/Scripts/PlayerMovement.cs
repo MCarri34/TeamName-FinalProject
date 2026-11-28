@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //public GameManager gameManager;
     [SerializeField] private PlayerAudio playerAudio;
+    [SerializeField] private GameObject doubleJumpIcon;
     public enum PlayerState
     {
         Idle,
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
+    public float doubleJumpForce = 10f;
     private bool hasDoubleJumpPowerUp = false;
     private bool doubleJumpAvailable = false;
 
@@ -48,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (doubleJumpIcon != null)
+        {
+            doubleJumpIcon.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -95,10 +102,15 @@ public class PlayerMovement : MonoBehaviour
                 //One extra jump while in the air
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
 
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * doubleJumpForce, ForceMode2D.Impulse);
 
                 //One time only extra jump
                 doubleJumpAvailable = false;
+
+                if (doubleJumpIcon != null)
+                {
+                    doubleJumpIcon.SetActive(false);
+                }
 
                 jumped = true;
             }
@@ -186,6 +198,11 @@ public class PlayerMovement : MonoBehaviour
         {
             hasDoubleJumpPowerUp = true;
             doubleJumpAvailable = true;
+            
+            if (doubleJumpIcon != null)
+            {
+                doubleJumpIcon.SetActive(true);
+            }
         }
     }
 
